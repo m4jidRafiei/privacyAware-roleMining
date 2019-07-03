@@ -1,10 +1,9 @@
-pandas==0.24.2
+pm4py==1.1.11
+pyvis==0.1.4.1
 scipy==1.1.0
-numpy==1.14.3
 networkx==2.3
 matplotlib==2.2.2
-pyvis==0.1.4.1
-pm4py==1.1.11
-psutil==5.4.5
+numpy==1.14.3
 distributed==1.21.8
+pandas==0.24.2
 pycrypto==2.6.1
