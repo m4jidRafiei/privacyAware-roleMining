@@ -53,37 +53,6 @@ class Utilities():
         return self.activityList
         
     
-    def create_basic_matrix(self):
-        snBasicList = [];
-        for case_index, case in enumerate(self.log):
-            for event_index, event in enumerate(case):
-                if(len(snBasicList) > 0 and case_index == snBasicList[len(snBasicList) - 1]['trace_id']):
-                    try:
-                        snBasicList[len(snBasicList) - 1]['next_resource'] = event["org:resource"]
-                    except KeyError:
-                        snBasicList[len(snBasicList) - 1]['next_resource'] = ":None:"
-                    # else: 
-                    
-                if(event_index == len(case) - 1):  # if it is the last event of the case, we will ignore it. 
-                    continue  # because we need just the resource of it which is accessed by the previous statement                                           
-                
-                sndict = {};
-                try:
-                    sndict['resource'] = event["org:resource"]
-                except KeyError:
-                    sndict['resource'] = ":None:"
-                    
-                sndict['next_resource'] = ""
-                sndict['relation_depth'] = "1"
-                sndict['trace_length'] = len(case)
-                sndict['trace_id'] = case_index
-                snBasicList.append(sndict)
-        
-        basic_df = pd.DataFrame(snBasicList)     
-        Utilities.setResourceSetList(self, basic_df)
-           
-        return basic_df, self.resourceList;
-    
     def create_full_matrix_next(self, event_log):
         snFullList = []
         main_counter = 0
@@ -182,25 +151,7 @@ class Utilities():
         m.update(value)
         hexvalue = m.hexdigest()
         return hexvalue
-    
-    def get_activity_frequency(self, snFullDF):
         
-        activity_frequencyDF = snFullDF.groupby(['activity']).size().reset_index(name='counts')
-        next_activity_frequencyDF = snFullDF.groupby(['next_activity']).size().reset_index(name='counts')
-        next_activity_frequencyDF = next_activity_frequencyDF.rename(columns={'next_activity':'activity'})
-        
-        #previous version all, all the similarity experiments are based on this
-        final_activity_fequency = pd.concat([activity_frequencyDF, next_activity_frequencyDF]).drop_duplicates(subset='activity', keep="first").reset_index(drop=True) 
-        
-        return final_activity_fequency
-    
-    def get_activity_frequency_next(self, snFullDF):
-        
-        activity_frequencyDF = snFullDF.groupby(['activity']).size().reset_index(name='counts')
-        
-        return activity_frequencyDF
-        
-    
     
     def getFrequenciesPerResourceActivity(self, snFull_DF):
         
@@ -315,7 +266,7 @@ class Utilities():
         return activity_substitutions
     
     
-    def make_activitySubstitutions_Selective(self, unique_frequencies_resource, unique_frequencies_activity, min, max, hashedActivities):
+    def make_activitySubstitutions_Selective(self, unique_frequencies_resource, unique_frequencies_activity, mini, maxi, hashedActivities):
         
         final_activity_fequency = unique_frequencies_activity.sort_values('counts')
         final_activity_fequency = final_activity_fequency.reset_index(drop=True)
@@ -433,22 +384,7 @@ class Utilities():
         
         return activity_substitutions
 
-    
-    def find_substitution(self,activity_substitutions,activity):
-        
-        if(activity == ':End:'):
-            sub_value_activity = ':End:'
-            return
-        rowSub = activity_substitutions.loc[activity_substitutions['activity'] == activity]
-        allSubstitutions = rowSub['substitution_list'].values
-        allSubstitutions_count = rowSub['substitution_list_count'].values
-                
-        for index, substitution in enumerate(allSubstitutions[0]):   
-            if(allSubstitutions_count[0][index] < rowSub['counts'].values[0]/ rowSub['num_substitution'].values[0]):  
-                sub_value_activity = substitution
-                activity_substitutions.loc[activity_substitutions['activity'] == activity,'substitution_list_count'].iloc[0][index] +=1
-                break
-        return sub_value_activity
+
     
    
     def find_substitution_ordered(self,activity_substitutions,activity):
@@ -501,49 +437,7 @@ class Utilities():
             
         return sub_value_activity
     
-    
-    def removeFrequency_full_matrix_next(self, snFullDF,type_sn):
-        
-        final_activity_fequency = self.get_activity_frequency_next(snFullDF)
-        activity_substitutions = Utilities.make_activitySubstitutions_next(self, 2, final_activity_fequency)
-       
-        snFullDF_withoutFreq =  snFullDF.copy()
-        next_activity_isset = False
-        for indexFull, rowFull in snFullDF.iterrows():
-                
-            #find random sub for activity
-            if(next_activity_isset == False):
-                sub_value_activity = self.find_substitution(activity_substitutions,rowFull['activity'])
-                snFullDF_withoutFreq.loc[indexFull,'activity'] = sub_value_activity
-                
-            
-            
-            #find random sub for nex_activty
-            sub_value_activity = self.find_substitution(activity_substitutions,rowFull['next_activity'])
-#             random_sub_value_next_activity = allSubstitutions[0][0]
-        
-            
-            # if case if of the next row is the same, we should keep the same random for the activity as the random of next_activity!!!
-            if(indexFull +1 < snFullDF.shape[0]): #if it is not the last row
-                if(snFullDF.loc[indexFull +1 ,'activity'] == snFullDF.loc[indexFull,'next_activity'] and
-                    snFullDF.loc[indexFull +1 ,'trace_id'] == snFullDF.loc[indexFull ,'trace_id']):
-                    next_activity_isset = True
-                    snFullDF_withoutFreq.loc[indexFull+1,'activity'] = sub_value_activity
-                else:
-                    next_activity_isset = False
-                   
-            snFullDF_withoutFreq.loc[indexFull,'next_activity'] = sub_value_activity
-            
-            print(snFullDF_withoutFreq.loc[indexFull])
-        
-        
-        #activity_frequency_after_decompose = self.get_activity_frequency(snFullDF_final)
 
-        Utilities.setResourceSetList(self, snFullDF_withoutFreq)   
-        Utilities.setActivitySetList(self, snFullDF_withoutFreq)
-        return snFullDF_withoutFreq, activity_substitutions , self.resourceList, self.activityList
-    
-    
     def AES_ECB_Encrypt(self, data):
         key = 'M4J!DPASSWORD!!!'
         cipher = AES.new(key.encode('utf8'), AES.MODE_ECB)
@@ -569,15 +463,6 @@ class Utilities():
         Utilities.setResourceSetList(self, snDF)   
         return snDF, self.resourceList
     
-    def resourceEncryption_connector(self, snDF):
-        for indexDF, rowDF in snDF.iterrows():
-            print("-----------", rowDF)
-            snDF.loc[indexDF,'resource'] = Utilities.AES_ECB_Encrypt(self, snDF.loc[indexDF,'resource'].encode('utf-8'))
-            snDF.loc[indexDF,'prev_resource'] = Utilities.AES_ECB_Encrypt(self, snDF.loc[indexDF,'prev_resource'].encode('utf-8'))
-        
-        Utilities.setResourceSetList_previous(self, snDF)    
-        return snDF, self.resourceList
-    
     def resourceDecryption(self, resourceList):
         
         Decrypted_resourceList = list()
@@ -586,21 +471,7 @@ class Utilities():
             Decrypted_resourceList.append(Utilities.AES_ECB_Decrypt(self, resource))
             
         return Decrypted_resourceList
-            
-    
-    def addFrequency_full_matrix(self, snFullDF_withoutFreq, activity_substitutions):
-        
-        snFullDF = snFullDF_withoutFreq.copy()
-        for indexFull, rowFull in snFullDF_withoutFreq.iterrows():
-            for indexSub, rowSub in activity_substitutions.iterrows():
-                if(rowFull['activity'] in rowSub['substitution_list']):
-                    snFullDF.loc[indexFull ,'activity'] = rowSub['activity']
-                if(rowFull['next_activity'] in rowSub['substitution_list']):
-                    snFullDF.loc[indexFull ,'next_activity'] = rowSub['activity']
-        
-        Utilities.setResourceSetList(self, snFullDF)   
-        Utilities.setActivitySetList(self, snFullDF)
-        return snFullDF, self.resourceList, self.activityList      
+              
         
 
         

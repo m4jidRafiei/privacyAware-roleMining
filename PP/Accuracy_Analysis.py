@@ -59,12 +59,14 @@ def accuracy_analysis(original_adjacentMatrix, modified_adjacentMatrix, threshol
         
         print('=================================')
         
-# Main is here
+# Main is here :)
 
 
 df_original = pd.read_csv(".\original_intermediate_results\RscRscMatrix_original.csv")
 df_modified = pd.read_csv(".\modified_intermediate_results\RscRscMatrix_modified.csv")
 original_adjacentMatrix = df_original.iloc[:,1:]
 modified_adjacentMatrix = df_modified.iloc[:,1:]
+
+threshold_scale = 0.1 # for which steps of threshold of similarity, you want to do the accuracy analysis
 
 accuracy_analysis(original_adjacentMatrix, modified_adjacentMatrix, 0.1)

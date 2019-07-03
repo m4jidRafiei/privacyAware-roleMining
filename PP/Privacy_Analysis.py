@@ -211,6 +211,7 @@ def privacy_analysis(original_frequency, modified_frequency, alpha):
 #Main is Here :)===========================================  
 original_frequency = pd.read_csv('.\original_intermediate_results\original_act_frq.csv')  
 modified_frequency = pd.read_csv('.\modified_intermediate_results\modified_act_frq.csv')  
+alpha = 0.5 # to set the importance of bound of frequencies
 
-privacy_analysis(original_frequency, modified_frequency, 0.5)
+privacy_analysis(original_frequency, modified_frequency, alpha)
 

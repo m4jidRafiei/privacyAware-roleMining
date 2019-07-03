@@ -13,6 +13,8 @@ from pm4py.objects.log.importer.xes import factory as xes_importer_factory
 #set intermediate results
 
 Event_log_type = 'modified' #original or modified (privacy_aware)
+Dataset_name = 'Sn_Artificial.xes'
+eventlog_path = ".\privacy_aware_log\pp_" + Dataset_name
 
 if(Event_log_type == 'original'):
     Resource_Activity_Matrix = ".\original_intermediate_results\RscActMatrix_jointactivities_original.csv"
@@ -24,7 +26,7 @@ else:
     Activity_Frequency = ".\modified_intermediate_results\modified_act_frq.csv"
 
 
-log = xes_importer_factory.apply("Sn_Artificial.xes")
+log = xes_importer_factory.apply(eventlog_path)
 
 utils = Utilities(log)
 
