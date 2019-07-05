@@ -1,6 +1,4 @@
 '''
-Created on Jul 3, 2019
-
 @author: majid
 '''
 
@@ -31,7 +29,9 @@ class privacyPreserving(object):
 
         activity_substitutions = utils.make_activitySubstitutions_general(snFull_DF, technique , resource_aware, NoSubstitutions=keyword_param['NoSubstitutions'], MinMax=keyword_param['MinMax'], FixedValue=keyword_param['FixedValue'], hashedActivities=hashedActivities)
 
-        log_withoutFreq = utils.frequency_elimination(activity_substitutions, resource_aware, True, attribute2remove = ['time:timestamp'])
+        log_withoutFreq = utils.frequency_elimination(activity_substitutions, resource_aware, True, True, 
+                                                      event_attribute2remove = ['time:timestamp'], 
+                                                      case_attribute2remove = ['REG_DATE'])
 
         if(expotPrivacyAwareLog):
             xes_exporter.export_log(log_withoutFreq, keyword_param['privacy_aware_log_path'] )

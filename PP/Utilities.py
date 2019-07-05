@@ -102,20 +102,28 @@ class Utilities():
         
         return full_df, self.resourceList, self.activityList
     
-    def frequency_elimination(self, activity_substitutions, resource_aware, remove_event_attribute, **keyword_param):
+    def frequency_elimination(self, activity_substitutions, resource_aware, remove_event_attribute, remove_case_attribute, **keyword_param):
         
         if(resource_aware == True):
-            log_withoutfreq= self.remove_frequency_wrt_resource(activity_substitutions, remove_event_attribute, **keyword_param)
+            log_withoutfreq= self.remove_frequency_wrt_resource(activity_substitutions, remove_event_attribute, remove_case_attribute, **keyword_param)
         else:
-            log_withoutfreq = self.remove_frequency(activity_substitutions, remove_event_attribute, **keyword_param)
+            log_withoutfreq = self.remove_frequency(activity_substitutions, remove_event_attribute, remove_case_attribute, **keyword_param)
         
         return log_withoutfreq
     
     
-    def remove_frequency(self,activity_substitutions, remove_event_attribute, **keyword_param):
+    def remove_frequency(self,activity_substitutions, remove_event_attribute, remove_case_attribute, **keyword_param):
         log_withoutfreq = self.log
         
         for case_index, case in enumerate(self.log):
+            if(remove_case_attribute):
+                for key in keyword_param['case_attribute2remove']:
+                    dict_case = dict(case)
+                    success = dict_case.pop(key,None)
+                    if(success == None):
+                        print("No case attribute to delete: "+ str(key))
+                log_withoutfreq[case_index] = dict_case
+                
             for event_index, event in enumerate(case):
                      
                 try:
@@ -125,19 +133,28 @@ class Utilities():
                     print('There is no activity in your even log!')
                 
                 if(remove_event_attribute):
-                    for key in keyword_param['attribute2remove']:
+                    for key in keyword_param['event_attribute2remove']:
                         dict_event = dict(event)
                         success = dict_event.pop(key,None)
                         if(success == None):
-                            print("No attribute to delete: "+ str(key))
+                            print("No event attribute to delete: "+ str(key))
                     log_withoutfreq[case_index][event_index] = dict_event
                 
         return log_withoutfreq
     
-    def remove_frequency_wrt_resource(self,activity_substitutions, remove_event_attribute, **keyword_param):
+    
+    
+    def remove_frequency_wrt_resource(self,activity_substitutions, remove_event_attribute, remove_case_attribute, **keyword_param):
         log_withoutfreq = self.log
         
         for case_index, case in enumerate(self.log):
+            if(remove_case_attribute):
+                for key in keyword_param['case_attribute2remove']:
+                    success = case._get_attributes().pop(key,None)
+                    if(success == None):
+                        print("No case attribute to delete: "+ str(key))
+                log_withoutfreq[case_index] = case
+            
             for event_index, event in enumerate(case): 
                 try:
                     log_withoutfreq[case_index][event_index]['concept:name'] = self.find_substitution_ordered_wrt_resource(activity_substitutions, event["concept:name"],  event["org:resource"])
@@ -151,11 +168,11 @@ class Utilities():
                         print(s)
 
                 if(remove_event_attribute):
-                    for key in keyword_param['attribute2remove']:
+                    for key in keyword_param['event_attribute2remove']:
                         dict_event = dict(event)
                         success = dict_event.pop(key,None)
                         if(success == None):
-                            print("No attribute to delete: "+ str(key))
+                            print("No event attribute to delete: "+ str(key))
                     log_withoutfreq[case_index][event_index] = dict_event
                     
         return log_withoutfreq
