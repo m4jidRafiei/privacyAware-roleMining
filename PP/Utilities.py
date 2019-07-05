@@ -1,6 +1,4 @@
 '''
-Created on Oct 5, 2018
-
 @author: majid
 '''
 
@@ -53,7 +51,7 @@ class Utilities():
         return self.activityList
         
     
-    def create_full_matrix_next(self, event_log):
+    def create_full_matrix_next(self, event_log, **keyword_param):
         snFullList = []
         main_counter = 0
         for case_index, case in enumerate(event_log):
@@ -86,9 +84,12 @@ class Utilities():
                     except KeyError:
                         sndict['next_resource'] = ":None:"
                         
-                sndict['relation_depth'] = "1"
-                sndict['trace_length'] = len(case)
-                sndict['trace_id'] = case_index
+                if(keyword_param['relation_depth']):
+                    sndict['relation_depth'] = "1"
+                if(keyword_param['trace_length']):
+                    sndict['trace_length'] = len(case)
+                if(keyword_param['trace_id']):
+                    sndict['trace0_id'] = case_index
                 
                 snFullList.append(sndict)
                 
@@ -101,17 +102,17 @@ class Utilities():
         
         return full_df, self.resourceList, self.activityList
     
-    def frequency_elimination(self, activity_substitutions, resource_aware):
+    def frequency_elimination(self, activity_substitutions, resource_aware, remove_event_attribute, **keyword_param):
         
         if(resource_aware == True):
-            log_withoutfreq= self.remove_frequency_wrt_resource(activity_substitutions)
+            log_withoutfreq= self.remove_frequency_wrt_resource(activity_substitutions, remove_event_attribute, **keyword_param)
         else:
-            log_withoutfreq = self.remove_frequency(activity_substitutions)
+            log_withoutfreq = self.remove_frequency(activity_substitutions, remove_event_attribute, **keyword_param)
         
         return log_withoutfreq
     
     
-    def remove_frequency(self,activity_substitutions):
+    def remove_frequency(self,activity_substitutions, remove_event_attribute, **keyword_param):
         log_withoutfreq = self.log
         
         for case_index, case in enumerate(self.log):
@@ -122,11 +123,18 @@ class Utilities():
                     print(case_index)
                 except KeyError:
                     print('There is no activity in your even log!')
-
+                
+                if(remove_event_attribute):
+                    for key in keyword_param['attribute2remove']:
+                        dict_event = dict(event)
+                        success = dict_event.pop(key,None)
+                        if(success == None):
+                            print("No attribute to delete: "+ str(key))
+                    log_withoutfreq[case_index][event_index] = dict_event
                 
         return log_withoutfreq
     
-    def remove_frequency_wrt_resource(self,activity_substitutions):
+    def remove_frequency_wrt_resource(self,activity_substitutions, remove_event_attribute, **keyword_param):
         log_withoutfreq = self.log
         
         for case_index, case in enumerate(self.log):
@@ -142,7 +150,14 @@ class Utilities():
                     else:
                         print(s)
 
-                
+                if(remove_event_attribute):
+                    for key in keyword_param['attribute2remove']:
+                        dict_event = dict(event)
+                        success = dict_event.pop(key,None)
+                        if(success == None):
+                            print("No attribute to delete: "+ str(key))
+                    log_withoutfreq[case_index][event_index] = dict_event
+                    
         return log_withoutfreq
 
     def make_hash(self, value):
