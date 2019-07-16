@@ -1,0 +1,6 @@
+Project that implements Privacy Aware Role Mining in PM4Py.
+
+To install:
+
+pip install -U -r requirements.txt
+python setup.py install
