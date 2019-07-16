@@ -10,6 +10,7 @@ import statistics
 import matplotlib.pyplot as plt
 from _collections import defaultdict
 import numpy as np
+import datetime
 
 
 class Utilities():
@@ -128,6 +129,11 @@ class Utilities():
                         print("No case attribute to delete: " + str(key))
                     log_withoutfreq[case_index] = case"""
 
+            event_attributes_to_remove = keyword_param['event_attribute2remove']
+            remove_timestamp = False
+            if "time:timestamp" in event_attributes_to_remove:
+                del event_attributes_to_remove[event_attributes_to_remove.index("time:timestamp")]
+                remove_timestamp = True
                 
             for event_index, event in enumerate(case):
                      
@@ -140,8 +146,12 @@ class Utilities():
                 if(remove_event_attribute):
                     all_attrs = list(log_withoutfreq[case_index][event_index])
                     for key in all_attrs:
-                        if key in keyword_param['event_attribute2remove']:
+                        if key in event_attributes_to_remove:
                             del log_withoutfreq[case_index][event_index][key]
+                    # replace time:timestamp
+                    if remove_timestamp:
+                        if "time:timestamp" in all_attrs:
+                            log_withoutfreq[case_index][event_index]["time:timestamp"] = datetime.datetime.fromtimestamp(100000)
                     """for key in keyword_param['event_attribute2remove']:
                         dict_event = dict(event)
                         success = dict_event.pop(key,None)
@@ -167,6 +177,12 @@ class Utilities():
                     if(success == None):
                         print("No case attribute to delete: "+ str(key))
                     log_withoutfreq[case_index] = case"""
+
+            event_attributes_to_remove = keyword_param['event_attribute2remove']
+            remove_timestamp = False
+            if "time:timestamp" in event_attributes_to_remove:
+                del event_attributes_to_remove[event_attributes_to_remove.index("time:timestamp")]
+                remove_timestamp = True
             
             for event_index, event in enumerate(case): 
                 try:
@@ -183,8 +199,12 @@ class Utilities():
                 if(remove_event_attribute):
                     all_attrs = list(log_withoutfreq[case_index][event_index])
                     for key in all_attrs:
-                        if key in keyword_param['event_attribute2remove']:
+                        if key in event_attributes_to_remove:
                             del log_withoutfreq[case_index][event_index][key]
+                    # replace time:timestamp
+                    if remove_timestamp:
+                        if "time:timestamp" in all_attrs:
+                            log_withoutfreq[case_index][event_index]["time:timestamp"] = datetime.datetime.fromtimestamp(100000)
                     """for key in keyword_param['event_attribute2remove']:
                         dict_event = dict(event)
                         success = dict_event.pop(key,None)
