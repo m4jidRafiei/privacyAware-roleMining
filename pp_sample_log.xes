@@ -1,0 +1,152 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<log>
+  <string key="source" value="CPN Tools simulation"/>
+  <string key="concept:name" value="teleclaims.mxml"/>
+  <string key="lifecycle:model" value="standard"/>
+  <string key="description" value="Simulated process"/>
+  <extension name="Lifecycle" prefix="lifecycle" uri="http://www.xes-standard.org/lifecycle.xesext"/>
+  <extension name="Organizational" prefix="org" uri="http://www.xes-standard.org/org.xesext"/>
+  <extension name="Time" prefix="time" uri="http://www.xes-standard.org/time.xesext"/>
+  <extension name="Concept" prefix="concept" uri="http://www.xes-standard.org/concept.xesext"/>
+  <extension name="Semantic" prefix="semantic" uri="http://www.xes-standard.org/semantic.xesext"/>
+  <global scope="trace">
+    <string key="concept:name" value="__INVALID__"/>
+  </global>
+  <global scope="event">
+    <string key="concept:name" value="__INVALID__"/>
+    <string key="lifecycle:transition" value="complete"/>
+  </global>
+  <classifier name="MXML Legacy Classifier" keys="concept:name lifecycle:transition"/>
+  <classifier name="Event Name" keys="concept:name"/>
+  <classifier name="Resource" keys="org:resource"/>
+  <trace>
+    <string key="concept:name" value="0"/>
+    <string key="description" value="Simulated process instance"/>
+    <event>
+      <string key="call centre" value="Brisbane"/>
+      <string key="org:resource" value="j"/>
+      <string key="lifecycle:transition" value="complete"/>
+      <string key="concept:name" value="16a36e86f6fed5d465ff332511a0ce1a863b55d364b25a7cdaa25db19abf9648"/>
+    </event>
+    <event>
+      <string key="org:resource" value="m"/>
+      <string key="lifecycle:transition" value="start"/>
+      <string key="location" value="Brisbane"/>
+      <string key="concept:name" value="05816a1560db947d6ff798e30909816f400f14230e9a06afac8f8b213127aa21"/>
+    </event>
+    <event>
+      <string key="org:resource" value="j"/>
+      <string key="lifecycle:transition" value="complete"/>
+      <string key="location" value="Brisbane"/>
+      <string key="concept:name" value="ab861dc170dc2e43224e45278d3d31a675b9ebc34c9b0f48c066ca1eeaed8ee6"/>
+    </event>
+    <event>
+      <string key="org:resource" value="p"/>
+      <string key="concept:name" value="33a123e5d474e8f3495a7c304f17184276715204ccb2887317f37bcb216b4681"/>
+      <string key="lifecycle:transition" value="start"/>
+    </event>
+  </trace>
+  <trace>
+    <string key="concept:name" value="1"/>
+    <string key="description" value="Simulated process instance"/>
+    <event>
+      <string key="call centre" value="Sydney"/>
+      <string key="org:resource" value="j"/>
+      <string key="lifecycle:transition" value="complete"/>
+      <string key="concept:name" value="aa508c2187fca56f397ff75adc52b94e02f38122cdd48bd42105106e5e0f8e14"/>
+    </event>
+    <event>
+      <string key="org:resource" value="m"/>
+      <string key="lifecycle:transition" value="start"/>
+      <string key="location" value="Sydney"/>
+      <string key="concept:name" value="ab861dc170dc2e43224e45278d3d31a675b9ebc34c9b0f48c066ca1eeaed8ee6"/>
+    </event>
+    <event>
+      <string key="org:resource" value="j"/>
+      <string key="lifecycle:transition" value="complete"/>
+      <string key="location" value="Sydney"/>
+      <string key="concept:name" value="05816a1560db947d6ff798e30909816f400f14230e9a06afac8f8b213127aa21"/>
+    </event>
+    <event>
+      <string key="org:resource" value="p"/>
+      <string key="concept:name" value="cf440f61634b8b95c9a22657060ec63fd4323075838d159a7ae91e5287700a32"/>
+      <string key="lifecycle:transition" value="start"/>
+    </event>
+  </trace>
+  <trace>
+    <string key="concept:name" value="2"/>
+    <string key="description" value="Simulated process instance"/>
+    <event>
+      <string key="call centre" value="Brisbane"/>
+      <string key="org:resource" value="s"/>
+      <string key="lifecycle:transition" value="complete"/>
+      <string key="concept:name" value="16a36e86f6fed5d465ff332511a0ce1a863b55d364b25a7cdaa25db19abf9648"/>
+    </event>
+    <event>
+      <string key="org:resource" value="Car"/>
+      <string key="lifecycle:transition" value="start"/>
+      <string key="location" value="Brisbane"/>
+      <string key="concept:name" value="05816a1560db947d6ff798e30909816f400f14230e9a06afac8f8b213127aa21"/>
+    </event>
+    <event>
+      <string key="org:resource" value="s"/>
+      <string key="lifecycle:transition" value="complete"/>
+      <string key="location" value="Brisbane"/>
+      <string key="concept:name" value="ab861dc170dc2e43224e45278d3d31a675b9ebc34c9b0f48c066ca1eeaed8ee6"/>
+    </event>
+    <event>
+      <string key="org:resource" value="p"/>
+      <string key="concept:name" value="33a123e5d474e8f3495a7c304f17184276715204ccb2887317f37bcb216b4681"/>
+      <string key="lifecycle:transition" value="start"/>
+    </event>
+  </trace>
+  <trace>
+    <string key="concept:name" value="3"/>
+    <string key="description" value="Simulated process instance"/>
+    <event>
+      <string key="call centre" value="Brisbane"/>
+      <string key="org:resource" value="s"/>
+      <string key="lifecycle:transition" value="complete"/>
+      <string key="concept:name" value="aa508c2187fca56f397ff75adc52b94e02f38122cdd48bd42105106e5e0f8e14"/>
+    </event>
+    <event>
+      <string key="org:resource" value="Car"/>
+      <string key="lifecycle:transition" value="start"/>
+      <string key="location" value="Brisbane"/>
+      <string key="concept:name" value="ab861dc170dc2e43224e45278d3d31a675b9ebc34c9b0f48c066ca1eeaed8ee6"/>
+    </event>
+    <event>
+      <string key="org:resource" value="s"/>
+      <string key="lifecycle:transition" value="complete"/>
+      <string key="location" value="Brisbane"/>
+      <string key="concept:name" value="05816a1560db947d6ff798e30909816f400f14230e9a06afac8f8b213127aa21"/>
+    </event>
+    <event>
+      <string key="org:resource" value="p"/>
+      <string key="concept:name" value="cf440f61634b8b95c9a22657060ec63fd4323075838d159a7ae91e5287700a32"/>
+      <string key="lifecycle:transition" value="start"/>
+    </event>
+  </trace>
+  <trace>
+    <string key="concept:name" value="4"/>
+    <string key="description" value="Simulated process instance"/>
+    <event>
+      <string key="call centre" value="Brisbane"/>
+      <string key="org:resource" value="s"/>
+      <string key="lifecycle:transition" value="complete"/>
+      <string key="concept:name" value="16a36e86f6fed5d465ff332511a0ce1a863b55d364b25a7cdaa25db19abf9648"/>
+    </event>
+    <event>
+      <string key="org:resource" value="cl"/>
+      <string key="lifecycle:transition" value="start"/>
+      <string key="location" value="Brisbane"/>
+      <string key="concept:name" value="02606f3ecf2a08f424ba6b22f944ad70b14e65b35a60d5499785082acb6d4ee9"/>
+    </event>
+    <event>
+      <string key="org:resource" value="cl"/>
+      <string key="lifecycle:transition" value="complete"/>
+      <string key="location" value="Brisbane"/>
+      <string key="concept:name" value="33a123e5d474e8f3495a7c304f17184276715204ccb2887317f37bcb216b4681"/>
+    </event>
+  </trace>
+</log>
