@@ -10,7 +10,7 @@ from _collections import defaultdict
 #from distributed.utils import resource
 from scipy.stats import pearsonr
 from _operator import index
-from PP.Utilities import Utilities
+from pp_role_mining.Utilities import Utilities
 
 
 

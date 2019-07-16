@@ -2,10 +2,10 @@
 @author: majid
 '''
 
-from PP.Utilities import Utilities
+from pp_role_mining.Utilities import Utilities
 from pm4py.objects.log.importer.xes import factory as xes_importer_factory
 from pm4py.objects.log.exporter.xes import factory as xes_exporter
-from PP.SN_Tools import SNCreator
+from pp_role_mining.SN_Tools import SNCreator
 import pandas as pd
 import numpy as np
 import tempfile

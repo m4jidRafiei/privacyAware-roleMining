@@ -4,9 +4,9 @@
 
 from pm4py.objects.log.importer.xes import factory as xes_importer_factory
 from pm4py.objects.log.exporter.xes import factory as xes_exporter
-from PP.privacyPreserving import privacyPreserving
-from PP.evaluation import evaluation
-from PP.Utilities import Utilities
+from pp_role_mining.privacyPreserving import privacyPreserving
+from pp_role_mining.evaluation import evaluation
+from pp_role_mining.Utilities import Utilities
 import pandas as pd
 
 
