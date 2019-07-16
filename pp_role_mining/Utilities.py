@@ -118,11 +118,10 @@ class Utilities():
         for case_index, case in enumerate(self.log):
             if(remove_case_attribute):
                 for key in keyword_param['case_attribute2remove']:
-                    dict_case = dict(case)
-                    success = dict_case.pop(key,None)
-                    if(success == None):
-                        print("No case attribute to delete: "+ str(key))
-                log_withoutfreq[case_index] = dict_case
+                    success = case._get_attributes().pop(key, None)
+                    if (success == None):
+                        print("No case attribute to delete: " + str(key))
+                log_withoutfreq[case_index] = case
                 
             for event_index, event in enumerate(case):
                      
