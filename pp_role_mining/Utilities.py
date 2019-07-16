@@ -117,11 +117,17 @@ class Utilities():
         
         for case_index, case in enumerate(self.log):
             if(remove_case_attribute):
-                for key in keyword_param['case_attribute2remove']:
+                #case.attributes = [attr for attr in case.attributes if attr not in keyword_param['case_attribute2remove']]
+                all_attrs = list(case.attributes)
+                for key in all_attrs:
+                    if key in keyword_param['case_attribute2remove']:
+                        del log_withoutfreq[case_index].attributes[key]
+                """for key in keyword_param['case_attribute2remove']:
                     success = case._get_attributes().pop(key, None)
                     if (success == None):
                         print("No case attribute to delete: " + str(key))
-                log_withoutfreq[case_index] = case
+                    log_withoutfreq[case_index] = case"""
+
                 
             for event_index, event in enumerate(case):
                      
@@ -132,12 +138,16 @@ class Utilities():
                     print('There is no activity in your even log!')
                 
                 if(remove_event_attribute):
-                    for key in keyword_param['event_attribute2remove']:
+                    all_attrs = list(log_withoutfreq[case_index][event_index])
+                    for key in all_attrs:
+                        if key in keyword_param['event_attribute2remove']:
+                            del log_withoutfreq[case_index][event_index][key]
+                    """for key in keyword_param['event_attribute2remove']:
                         dict_event = dict(event)
                         success = dict_event.pop(key,None)
                         if(success == None):
                             print("No event attribute to delete: "+ str(key))
-                    log_withoutfreq[case_index][event_index] = dict_event
+                        log_withoutfreq[case_index][event_index] = dict_event"""
                 
         return log_withoutfreq
     
@@ -148,11 +158,15 @@ class Utilities():
         
         for case_index, case in enumerate(self.log):
             if(remove_case_attribute):
-                for key in keyword_param['case_attribute2remove']:
+                all_attrs = list(case.attributes)
+                for key in all_attrs:
+                    if key in keyword_param['case_attribute2remove']:
+                        del log_withoutfreq[case_index].attributes[key]
+                """for key in keyword_param['case_attribute2remove']:
                     success = case._get_attributes().pop(key,None)
                     if(success == None):
                         print("No case attribute to delete: "+ str(key))
-                log_withoutfreq[case_index] = case
+                    log_withoutfreq[case_index] = case"""
             
             for event_index, event in enumerate(case): 
                 try:
@@ -167,12 +181,16 @@ class Utilities():
                         print(s)
 
                 if(remove_event_attribute):
-                    for key in keyword_param['event_attribute2remove']:
+                    all_attrs = list(log_withoutfreq[case_index][event_index])
+                    for key in all_attrs:
+                        if key in keyword_param['event_attribute2remove']:
+                            del log_withoutfreq[case_index][event_index][key]
+                    """for key in keyword_param['event_attribute2remove']:
                         dict_event = dict(event)
                         success = dict_event.pop(key,None)
                         if(success == None):
                             print("No event attribute to delete: "+ str(key))
-                    log_withoutfreq[case_index][event_index] = dict_event
+                        log_withoutfreq[case_index][event_index] = dict_event"""
                     
         return log_withoutfreq
 
