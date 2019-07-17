@@ -359,7 +359,7 @@ class Utilities():
     
         for index, row in uRuA_df.iterrows():
             
-            if(row['activity']==final_activity_fequency.iloc[1]['activity'] and min == True):
+            if(row['activity']==final_activity_fequency.iloc[1]['activity'] and mini == True):
                 num_substitution.append(math.ceil(row['counts']/min_frequency))
                 sub_list = []
                 sub_list_count = []
@@ -374,7 +374,7 @@ class Utilities():
                 substitution_list.append(sub_list)
                 substitution_list_count.append(sub_list_count)
                 
-            elif(row['activity']== final_activity_fequency.iloc[final_activity_fequency.shape[0]-1]['activity'] and max == True):
+            elif(row['activity']== final_activity_fequency.iloc[final_activity_fequency.shape[0]-1]['activity'] and maxi == True):
                 num_substitution.append(math.ceil(row['counts']/median_frequency))
                 sub_list = []
                 sub_list_count = []

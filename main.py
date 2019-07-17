@@ -16,14 +16,14 @@ NoSubstitutions = 2
 #for selective technique
 MinMax = [True, True] #if you want to perturb both lower and upper bound
 #for frequency_based technique
-FixedValue = 0 #to combine the fixed_value technique with the frequency_based technique (FixedValue=0 is only frequency_based without any fixed value added to the number of substitutions)
+FixedValue = 0 #to combine the fixed_value techniue with the frequency_based technique (FixedValue=0 is only frequency_based without any fixed value added to the number of substitutions)
 
 show_final_result = False
 
 event_log = "sample_log.xes"
-technique = 'fixed_value'  # fixed_value, selective, frequency_based
+technique = 'selective'  # fixed_value, selective, frequency_based
 resource_aware = True #true if we want to consider resources while allocating activity substitutions. Otherwise it is False
-hashedActivities = True #if you want to produce hash of activities
+hashedActivities = False #if you want to produce hash of activities
 exportPrivacyAwareLog = True #if you want to export the log with the perturbed activities
 privacy_aware_log_path = "pp_" + event_log
 
