@@ -20,20 +20,21 @@ FixedValue = 0 #to combine the fixed_value techniue with the frequency_based tec
 
 show_final_result = False
 
-event_log = "sample_log.xes"
-technique = 'selective'  # fixed_value, selective, frequency_based
+event_log = "running_example.xes"
+technique = 'fixed_value'  # fixed_value, selective, frequency_based
 resource_aware = True #true if we want to consider resources while allocating activity substitutions. Otherwise it is False
-hashedActivities = False #if you want to produce hash of activities
+hashedActivities = True #if you want to produce hash of activities
 exportPrivacyAwareLog = True #if you want to export the log with the perturbed activities
 privacy_aware_log_path = "pp_" + event_log
-
+#
 pp = privacyPreserving(event_log)
-pp.apply_privacyPreserving(technique, resource_aware, exportPrivacyAwareLog, show_final_result, hashedActivities, NoSubstitutions=NoSubstitutions, MinMax=MinMax, FixedValue=FixedValue, privacy_aware_log_path=privacy_aware_log_path, event_attribute2remove=["time:timestamp"], case_attribute2remove=["REG_DATE"])
+pp.apply_privacyPreserving(technique, resource_aware, exportPrivacyAwareLog, show_final_result, hashedActivities, NoSubstitutions=NoSubstitutions, MinMax=MinMax,
+                           FixedValue=FixedValue, privacy_aware_log_path=privacy_aware_log_path, event_attribute2remove=["Activity", "Resource", "Costs"], case_attribute2remove=["creator"])
 
 
-#directly call result maker-----------------
+# directly call result maker-----------------
 # Event_log_type = 'original' #original or modified (privacy_aware)
-# pp.result_maker(Event_log_type, True, True, 0.2, False, log_path = event_log)
+# pp.result_maker(Event_log_type, True, True, 0.01, False, log_path = event_log)
 
 
 #Evaluation -> accuracy analysis--------------

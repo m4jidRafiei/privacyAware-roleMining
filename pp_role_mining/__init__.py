@@ -1,4 +1,4 @@
-from pp_role_mining import evaluation, privacyPreserving, SN_Tools, Utilities
+from pp_role_mining import evaluation, privacyPreserving, SN_Tools, Utilities, PrivacyExtension
 
 __version__ = '0.0.3'
 __doc__ = "Privacy Aware Role Mining in PM4Py"

@@ -9,6 +9,7 @@ from pp_role_mining.SN_Tools import SNCreator
 import pandas as pd
 import numpy as np
 import tempfile
+from pp_role_mining.PrivacyExtension import PrivacyExtension
 
 class privacyPreserving(object):
     '''
@@ -46,6 +47,36 @@ class privacyPreserving(object):
         log_withoutFreq = utils.frequency_elimination(activity_substitutions, resource_aware, True, True,
                                                       event_attribute2remove=event_attribute2remove,
                                                       case_attribute2remove=case_attribute2remove)
+
+        ##adding privacy extension here....
+
+        privacy = PrivacyExtension(log_withoutFreq)
+
+        eventAttributes = {}
+        for key in event_attribute2remove:
+            eventAttributes[key] = 'removed'
+
+        if(hashedActivities == True):
+            eventAttributes['concept:name'] = 'hashed'
+
+        if('concept:name' in eventAttributes):
+            eventAttributes['concept:name'] += ',perturbed'
+
+        traceAttributes = {}
+        for key in case_attribute2remove:
+            traceAttributes[key] = 'removed'
+
+        privacy.set_privacy_tracking()
+        privacy.set_methods(method='pa_roleMining', abstraction=True,
+                            desiredAnalyses=['Role Mining'])
+        privacy.set_statistics(noModifiedTraces=len(log_withoutFreq) , noModifiedEvents=sum([len(trace) for trace in log_withoutFreq]))
+        privacy.set_modification_meta(logAttributes={}, traceAttributes=traceAttributes,
+                                      eventAttributes=eventAttributes)
+        privacy.set_modification_data(controlflowPers={},
+                                      organizationalPers={}, timePers={}, casePers={})
+
+
+        #End of adding extension
 
         if (expotPrivacyAwareLog):
             xes_exporter.export_log(log_withoutFreq, keyword_param['privacy_aware_log_path'])
