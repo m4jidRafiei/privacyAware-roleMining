@@ -20,16 +20,18 @@ setup(
     py_modules=[pp_role_mining.__name__],
     include_package_data=True,
     packages=['pp_role_mining'],
-    url='http://www.pm4py.org',
+    url='https://github.com/m4jidRafiei/privacyAware-ConnectorMethod_DFG',
     license='GPL 3.0',
     install_requires=[
         'pm4py',
         'distributed==1.21.8',
-        'pycrypto==2.6.1'
+        'pycrypto==2.6.1',
+        'p_privacy_metadata==0.0.1',
+        'networkx==2.3',
+        'matplotlib==2.2.2',
+        'pyvis==0.1.4.1'
     ],
     project_urls={
-        'Documentation': 'http://pm4py.pads.rwth-aachen.de/documentation/',
-        'Source': 'https://github.com/pm4py/pm4py-source',
-        'Tracker': 'https://github.com/pm4py/pm4py-source/issues',
+        'Source': 'https://github.com/m4jidRafiei/privacyAware-roleMining'
     }
 )

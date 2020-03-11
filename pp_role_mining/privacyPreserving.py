@@ -9,7 +9,8 @@ from pp_role_mining.SN_Tools import SNCreator
 import pandas as pd
 import numpy as np
 import tempfile
-from pp_role_mining.PrivacyExtension import PrivacyExtension
+from p_privacy_metadata.privacyExtension import privacyExtension
+from p_privacy_metadata.PMA import PMA
 
 class privacyPreserving(object):
     '''
@@ -49,8 +50,10 @@ class privacyPreserving(object):
                                                       case_attribute2remove=case_attribute2remove)
 
         ##adding privacy extension here....
+        prefix = 'privacy:'
+        uri = 'http://www.xes-standard.org/privacy.xesext'
 
-        privacy = PrivacyExtension(log_withoutFreq)
+        privacy = privacyExtension(log_withoutFreq,prefix,uri)
 
         eventAttributes = {}
         for key in event_attribute2remove:
@@ -66,14 +69,15 @@ class privacyPreserving(object):
         for key in case_attribute2remove:
             traceAttributes[key] = 'removed'
 
-        privacy.set_privacy_tracking()
-        privacy.set_methods(method='pa_roleMining', abstraction=True,
-                            desiredAnalyses=['Role Mining'])
-        privacy.set_statistics(noModifiedTraces=len(log_withoutFreq) , noModifiedEvents=sum([len(trace) for trace in log_withoutFreq]))
-        privacy.set_modification_meta(logAttributes={}, traceAttributes=traceAttributes,
-                                      eventAttributes=eventAttributes)
-        privacy.set_modification_data(controlflowPers={},
-                                      organizationalPers={}, timePers={}, casePers={})
+        privacy.set_privacy_tracking('substitution', 'event', 'concept:name')
+
+        operation_parameters = {}
+        operation_parameters['techniques'] = technique
+        operation_parameters['resource_aware'] = resource_aware
+
+        layer = privacy.get_last_layer()
+
+        privacy.set_optional_tracking(layer,operation_parameters = operation_parameters)
 
 
         #End of adding extension

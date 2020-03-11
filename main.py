@@ -21,6 +21,7 @@ FixedValue = 0 #to combine the fixed_value techniue with the frequency_based tec
 show_final_result = False
 
 event_log = "running_example.xes"
+# event_log = "pp_running_example.xes"
 technique = 'fixed_value'  # fixed_value, selective, frequency_based
 resource_aware = True #true if we want to consider resources while allocating activity substitutions. Otherwise it is False
 hashedActivities = True #if you want to produce hash of activities
