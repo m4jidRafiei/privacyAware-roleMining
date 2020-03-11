@@ -51,7 +51,7 @@ class privacyPreserving(object):
 
         ##adding privacy extension here....
         prefix = 'privacy:'
-        uri = 'http://www.xes-standard.org/privacy.xesext'
+        uri = 'paper_version_uri/privacy.xesext'
 
         privacy = privacyExtension(log_withoutFreq,prefix,uri)
 
@@ -79,6 +79,8 @@ class privacyPreserving(object):
 
         privacy.set_optional_tracking(layer,operation_parameters = operation_parameters)
 
+        if(hashedActivities):
+            privacy.set_privacy_tracking('hash', 'event', 'concept:name')
 
         #End of adding extension
 
