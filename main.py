@@ -24,7 +24,7 @@ event_log = "running_example.xes"
 # event_log = "pp_running_example.xes"
 technique = 'fixed_value'  # fixed_value, selective, frequency_based
 resource_aware = True #true if we want to consider resources while allocating activity substitutions. Otherwise it is False
-hashedActivities = False #if you want to produce hash of activities
+hashedActivities = True #if you want to produce hash of activities
 exportPrivacyAwareLog = True #if you want to export the log with the perturbed activities
 privacy_aware_log_path = "pp_" + event_log
 #

@@ -69,7 +69,7 @@ class privacyPreserving(object):
         for key in case_attribute2remove:
             traceAttributes[key] = 'removed'
 
-        privacy.set_privacy_tracking('substitution', 'event', 'concept:name')
+        privacy.set_anonymizer('substitution', 'event', 'concept:name')
 
         operation_parameters = {}
         operation_parameters['techniques'] = technique
@@ -77,10 +77,14 @@ class privacyPreserving(object):
 
         layer = privacy.get_last_layer()
 
-        privacy.set_optional_tracking(layer,operation_parameters = operation_parameters)
+        privacy.set_optional_anonymizer(layer,operation_parameters = operation_parameters)
 
         if(hashedActivities):
-            privacy.set_privacy_tracking('hash', 'event', 'concept:name')
+            privacy.set_anonymizer('cryptography', 'event', 'concept:name')
+            layer = privacy.get_last_layer()
+            operation_parameters_h = {}
+            operation_parameters_h['method'] = 'hash'
+            privacy.set_optional_anonymizer(layer, operation_parameters=operation_parameters_h)
 
         #End of adding extension
 
