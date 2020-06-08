@@ -10,7 +10,6 @@ import pandas as pd
 import numpy as np
 import tempfile
 from p_privacy_metadata.privacyExtension import privacyExtension
-from p_privacy_metadata.PMA import PMA
 
 class privacyPreserving(object):
     '''

@@ -26,7 +26,7 @@ setup(
         'pm4py==1.2.10',
         'distributed==1.21.8',
         'pycrypto==2.6.1',
-        'p_privacy_metadata==0.0.3',
+        'p_privacy_metadata==0.0.4',
         'networkx==2.3',
         'matplotlib==2.2.2',
         'pyvis==0.1.4.1'
