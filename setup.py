@@ -29,6 +29,7 @@ setup(
         'p_privacy_metadata==0.0.4',
         'networkx==2.3',
         'matplotlib==2.2.2',
+        'numpy==1.18.1',
         'pyvis==0.1.4.1'
     ],
     project_urls={
