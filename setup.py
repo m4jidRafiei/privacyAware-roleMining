@@ -15,6 +15,7 @@ setup(
     version=pp_role_mining.__version__,
     description=pp_role_mining.__doc__.strip(),
     long_description=read_file('README.md'),
+    long_description_content_type="text/markdown",
     author=pp_role_mining.__author__,
     author_email=pp_role_mining.__author_email__,
     py_modules=[pp_role_mining.__name__],
